@@ -1,8 +1,54 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
+//creating an enum. Enums are used to create constant values.
+enum TaskState {
+    NotStarted, Started, Finished;
+}
+
+enum TaskDate {
+    Today, Tomorrow, Someday;
+}
+
+
+class Task {
+
+    private String t;
+    private TaskState state;
+    private TaskDate date;
+
+    Task(String t) {
+        this.t = t;
+        state = TaskState.NotStarted;
+    }
+
+
+    // setting the day the task should be made.
+    void setDate(int i) {
+        switch (i) {
+            case 1:
+            date = TaskDate.Today;
+            break;
+            case 2:
+            date = TaskDate.Tomorrow;
+            break;
+            case 3:
+            date = TaskDate.Someday;
+            break;
+            default:
+            System.out.println("You have entered wrong Date");
+        }
+
+    }
+
+}
+
+
 class ToDoList {
+
     List<String> myToDo = new ArrayList<>();
+
 
     // creating a method for adding Task in array
     void addTask(String t) {
@@ -22,6 +68,8 @@ class ToDoList {
     void getLength() {
         System.out.println("There are " + myToDo.size() + " tasks for today");
     }
+
+    
 
 }
 
