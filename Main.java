@@ -24,34 +24,57 @@ class Task {
     }
 
 
-    // setting the day the task should be made.
+    //setting the day the task should be made.
     void setDate(int i) {
         switch (i) {
             case 1:
             date = TaskDate.Today;
+            System.out.println("Date has been changed to Today");
             break;
             case 2:
             date = TaskDate.Tomorrow;
+            System.out.println("Date has been changed to Tomorrow");
             break;
             case 3:
             date = TaskDate.Someday;
+            System.out.println("Date has been changed to Someday");
             break;
             default:
-            System.out.println("You have entered wrong Date");
+            System.out.println("You have entered wrong Date!!!");
         }
 
+    }
+
+    //method for changing state of the Task
+    void changeState(int i) {
+        switch (i) {
+            case 1:
+            state = TaskState.Started;
+            System.out.println("State has been changed to Started");
+            break;
+            case 2:
+            state = TaskState.Finished;
+            System.out.println("State has been changed to Finished");
+            default:
+            System.out.println("You have entered wrong State!!!");
+        }
+    }
+
+    String getTask() {
+        return this.t;
     }
 
 }
 
 
-class ToDoList {
+// generic class for holding any type of Task
+class ToDoList <T> {
 
-    List<String> myToDo = new ArrayList<>();
+    List<T> myToDo = new ArrayList<>();
 
 
     // creating a method for adding Task in array
-    void addTask(String t) {
+    void addTask(T t) {
         myToDo.add(t);
     }
 
@@ -60,8 +83,14 @@ class ToDoList {
     }
 
     void showTasks() {
-        for (String task : myToDo) {
-            System.out.println(task);
+        for (T task : myToDo) {
+            if (task instanceof String) {
+                System.out.println(task);
+            } else {
+                // casting Generic <T> into task
+                Task myt = (Task) task;
+                System.out.println(myt.getTask());
+            }
         }
     }
 
@@ -73,18 +102,22 @@ class ToDoList {
 
 }
 
+
 public class Main {
     public static void main(String[] args) {
-        ToDoList myTodo = new ToDoList();
+        ToDoList<String> myTodo = new ToDoList<>();
 
-        myTodo.addTask("Finish my ToDo list project");
-        myTodo.addTask("Practice in git a little bit");
-        myTodo.addTask("Clean my room");
+        // Task task1 = new Task("Finish my ToDo list project");
+        // Task task2 = new Task("Practice in git a little bit");
+        // Task task3 = new Task("Clean my room");
+        myTodo.addTask("Wash the dishes");
+        myTodo.addTask("Mop the floor");
+        myTodo.addTask("Clean my PC");
+        myTodo.getLength();
 
-        System.out.println("You tasks for today are: ");
+        System.out.println();
         //displaying tasks assigned for today's day
         myTodo.showTasks();
-        myTodo.getLength();
 
         myTodo.removeTask(0);
 
