@@ -5,23 +5,23 @@ import java.util.Scanner;
 
 //creating an enum. Enums are used to create constant values.
 enum TaskState {
-    NotStarted, Started, Finished;
+    NOT_STARTED, STARTED, FINISHED;
 }
 
 enum TaskDate {
-    Today, Tomorrow, Someday;
+    TODAY, TOMORROW, SOMEDAY;
 }
 
 
 class Task {
 
     private String t;
-    private TaskState state;
+    public TaskState state;
     private TaskDate date;
 
     Task(String t) {
         this.t = t;
-        state = TaskState.NotStarted;
+        state = TaskState.NOT_STARTED;
     }
 
 
@@ -29,15 +29,15 @@ class Task {
     void setDate(int i) {
         switch (i) {
             case 1:
-            date = TaskDate.Today;
+            date = TaskDate.TODAY;
             System.out.println("Date has been changed to Today");
             break;
             case 2:
-            date = TaskDate.Tomorrow;
+            date = TaskDate.TOMORROW;
             System.out.println("Date has been changed to Tomorrow");
             break;
             case 3:
-            date = TaskDate.Someday;
+            date = TaskDate.SOMEDAY;
             System.out.println("Date has been changed to Someday");
             break;
             default:
@@ -47,14 +47,14 @@ class Task {
     }
 
     //method for changing state of the Task
-    void changeState(int i) {
+    void setState(int i) {
         switch (i) {
             case 1:
-            state = TaskState.Started;
+            state = TaskState.STARTED;
             System.out.println("State has been changed to Started");
             break;
             case 2:
-            state = TaskState.Finished;
+            state = TaskState.FINISHED;
             System.out.println("State has been changed to Finished");
             default:
             System.out.println("You have entered wrong State!!!");
@@ -99,8 +99,15 @@ class ToDoList <T> {
         System.out.println("There are " + myToDo.size() + " tasks for today: ");
     }
 
-    
-
+    void getFinishedTasks() {
+        for(T task : myToDo) {
+            if(task instanceof Task) {
+                Task myt = (Task) task;
+                if(myt.state == TaskState.FINISHED) {
+                    System.out.println(myt.getTask());
+                }
+            }
+    }
 }
 
 
@@ -108,7 +115,7 @@ public class Main {
 
     static ToDoList<Task> myTodo = new ToDoList<>();    
 
-    void addTasks() {
+    static void addTasks() {
         try (Scanner scanner = new Scanner(System.in)) {
 
             while(true) {
@@ -124,6 +131,34 @@ public class Main {
 
     }
     public static void main(String[] args) {
+
+        //a loop for keeping asking user what does he want
+        while(true) {
+            try(Scanner cli = new Scanner(System.in)) {
+                System.out.println("What do you want to make?");
+                System.out.println("1. Add tasks");
+                System.out.println("2. Edit task");
+                System.out.println("3. Crossout task");
+                
+                String userAnswer = cli.nextLine();
+
+                if(userAnswer.equals("1")) {
+                    addTasks();
+                } else if(userAnswer.equals("2")) {
+                    System.out.println("What task you want to change?");
+
+
+                    String whatToEdit = cli.nextLine();
+
+                    if(whatToEdit.equals("1")) {
+                        task.setState(1);
+                    }
+                }
+
+                
+                
+            }
+        }
 
         myTodo.getLength();
 
