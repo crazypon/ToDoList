@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 //creating an enum. Enums are used to create constant values.
@@ -95,7 +96,7 @@ class ToDoList <T> {
     }
 
     void getLength() {
-        System.out.println("There are " + myToDo.size() + " tasks for today");
+        System.out.println("There are " + myToDo.size() + " tasks for today: ");
     }
 
     
@@ -104,15 +105,26 @@ class ToDoList <T> {
 
 
 public class Main {
-    public static void main(String[] args) {
-        ToDoList<String> myTodo = new ToDoList<>();
 
-        // Task task1 = new Task("Finish my ToDo list project");
-        // Task task2 = new Task("Practice in git a little bit");
-        // Task task3 = new Task("Clean my room");
-        myTodo.addTask("Wash the dishes");
-        myTodo.addTask("Mop the floor");
-        myTodo.addTask("Clean my PC");
+    static ToDoList<Task> myTodo = new ToDoList<>();    
+
+    void addTasks() {
+        try (Scanner scanner = new Scanner(System.in)) {
+
+            while(true) {
+                System.out.println("What task do you want to add?");
+                String newTask = scanner.nextLine();
+                if(newTask.equals("stop")) {
+                    break;
+                }
+                myTodo.addTask(new Task(newTask));
+                System.out.println("\nTask has been successfully added");
+            }
+        }
+
+    }
+    public static void main(String[] args) {
+
         myTodo.getLength();
 
         System.out.println();
