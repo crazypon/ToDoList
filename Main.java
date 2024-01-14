@@ -19,8 +19,9 @@ class Task {
     public TaskState state;
     private TaskDate date;
 
-    Task(String t) {
+    Task(String t, TaskDate date) {
         this.t = t;
+        this.date = date;
         state = TaskState.NOT_STARTED;
     }
 
@@ -61,10 +62,6 @@ class Task {
         }
     }
 
-    String getTask() {
-        return this.t;
-    }
-
 }
 
 
@@ -90,7 +87,7 @@ class ToDoList <T> {
             } else {
                 // casting Generic <T> into task
                 Task myt = (Task) task;
-                System.out.println(myt.getTask());
+                System.out.println(myt);
             }
         }
     }
@@ -104,10 +101,17 @@ class ToDoList <T> {
             if(task instanceof Task) {
                 Task myt = (Task) task;
                 if(myt.state == TaskState.FINISHED) {
-                    System.out.println(myt.getTask());
+                    System.out.println(myt);
                 }
             }
+        } 
     }
+
+    T getTask(int taskid) {
+        return myToDo.get(taskid);
+    }
+
+    
 }
 
 
@@ -124,7 +128,7 @@ public class Main {
                 if(newTask.equals("stop")) {
                     break;
                 }
-                myTodo.addTask(new Task(newTask));
+                myTodo.addTask(new Task(newTask, TaskDate.SOMEDAY));
                 System.out.println("\nTask has been successfully added");
             }
         }
@@ -145,14 +149,28 @@ public class Main {
                 if(userAnswer.equals("1")) {
                     addTasks();
                 } else if(userAnswer.equals("2")) {
-                    System.out.println("What task you want to change?");
+                    System.out.println("What task you want to edit?");
 
 
                     String whatToEdit = cli.nextLine();
+                    try {
+                        Integer taskIndex = Integer.parseInt(whatToEdit);
+                        Task chosenTask = myTodo.getTask(taskIndex - 1);
 
-                    if(whatToEdit.equals("1")) {
-                        task.setState(1);
+                        System.out.println("What you want to make?");
+                        System.out.println("1. Edit state of the Task");
+                        System.out.println("2. Edit date of the Task");
+                        System.out.println("3. Finish Task");
+
+                        String chosenOperation = cli.nextLine();
+
+                        if(chosenOperation.equals("1")) {
+                            
+                        }
+                    }catch(ArrayIndexOutOfBoundsException e1) {
+                        System.out.println("There is no such number!");
                     }
+                    
                 }
 
                 
